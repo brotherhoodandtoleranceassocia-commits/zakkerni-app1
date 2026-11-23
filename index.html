@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4f46e5">
+<title>ذكرني - مساعدك الشخصي</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f2f4ff;color:#20243a}
+header{background:#4f46e5;color:white;padding:22px 16px;text-align:center;border-radius:0 0 25px 25px}
+header h1{margin:5px;font-size:27px}
+header p{margin:8px 0}
+#clock{font-size:20px;font-weight:bold}
+main{padding:16px;max-width:650px;margin:auto}
+h2{font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:white;border:0;border-radius:17px;padding:18px 8px;min-height:105px;text-align:center;box-shadow:0 3px 12px #20205012;font-size:16px;color:#30344b;cursor:pointer}
+.card span{display:block;font-size:27px;margin-bottom:9px}
+.panel{background:white;border-radius:17px;padding:16px;margin-top:16px}
+input,textarea,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d9dbea;border-radius:10px;font-size:16px}
+button{background:#4f46e5;color:white;border:0;padding:12px 17px;border-radius:10px;font-size:15px;cursor:pointer;margin:4px}
+.item{background:#f2f4ff;padding:12px;border-radius:10px;margin:8px 0;overflow-wrap:anywhere}
+nav{position:sticky;bottom:0;background:white;display:flex;justify-content:space-around;padding:12px 3px;border-top:1px solid #ddd}
+nav button{background:transparent;color:#45456b;margin:0;padding:8px;font-size:13px}
+small{color:#777}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🔔 ذكرني</h1>
+<p>مساعدك الشخصي لتنظيم حياتك</p>
+<div id="clock">--:--</div>
+<div id="date"></div>
+</header>
+
+<main>
+<section id="home">
+<div class="panel">
+<h2>مرحباً بك في ذكرني</h2>
+<p>نظّم مواعيدك وأعمالك واحتفظ بمعلوماتك في مكان واحد.</p>
+</div>
+
+<h2>خدمات التطبيق</h2>
+<div class="grid">
+<button class="card" onclick="showSection('reminders')"><span>⏰</span>التذكيرات والمواعيد</button>
+<button class="card" onclick="showSection('health')"><span>💊</span>الأدوية والصحة</button>
+<button class="card" onclick="showSection('people')"><span>👥</span>الأشخاص ومعلوماتهم</button>
+<button class="card" onclick="showSection('files')"><span>📁</span>الصور والملفات</button>
+<button class="card" onclick="showSection('audio')"><span>🎙️</span>التسجيلات الصوتية</button>
+<button class="card" onclick="showSection('future')"><span>✉️</span>رسائل المستقبل</button>
+<button class="card" onclick="showSection('business')"><span>🧾</span>التجار والحسابات</button>
+<button class="card" onclick="showSection('worship')"><span>📿</span>الأذكار والعبادات</button>
+</div>
+</section>
+
+<section id="reminders" class="panel hidden">
+<h2>⏰ التذكيرات والمواعيد</h2>
+<input id="remText" placeholder="اكتب التذكير">
+<input id="remDate" type="datetime-local">
+<button onclick="addItem('reminders','remText','remDate')">إضافة تذكير</button>
+<div id="remindersList"></div>
+</section>
+
+<section id="health" class="panel hidden">
+<h2>💊 الأدوية والصحة</h2>
+<input id="medText" placeholder="اسم الدواء والجرعة">
+<input id="medDate" type="datetime-local">
+<button onclick="addItem('health','medText','medDate')">حفظ الدواء</button>
+<div id="healthList"></div>
+</section>
+
+<section id="people" class="panel hidden">
+<h2>👥 الأشخاص ومعلوماتهم</h2>
+<input id="personText" placeholder="الاسم ورقم الهاتف والمعلومات">
+<button onclick="addItem('people','personText')">حفظ الشخص</button>
+<div id="peopleList"></div>
+</section>
+
+<section id="files" class="panel hidden">
+<h2>📁 الصور والملفات</h2>
+<input id="fileInput" type="file" multiple>
+<button onclick="saveFiles()">حفظ أسماء الملفات</button>
+<div id="filesList"></div>
+<small>هذه النسخة تحفظ أسماء الملفات فقط، ولا تحفظ محتوياتها.</small>
+</section>
+
+<section id="audio" class="panel hidden">
+<h2>🎙️ التسجيلات الصوتية</h2>
+<button onclick="speak('مرحباً بك في تطبيق ذكرني')">اختبار النطق الصوتي</button>
+<p>التسجيل الصوتي الفعلي سيضاف في مرحلة تطوير لاحقة.</p>
+</section>
+
+<section id="future" class="panel hidden">
+<h2>✉️ رسائل المستقبل</h2>
+<textarea id="futureText" placeholder="اكتب رسالة لنفسك أو لشخص آخر"></textarea>
+<input id="futureDate" type="datetime-local">
+<button onclick="addItem('future','futureText','futureDate')">حفظ الرسالة</button>
+<div id="futureList"></div>
+</section>
+
+<section id="business" class="panel hidden">
+<h2>🧾 التجار والحسابات</h2>
+<input id="customerText" placeholder="اسم الزبون">
+<input id="debtText" type="number" placeholder="قيمة الدين">
+<button onclick="addDebt()">حفظ الحساب</button>
+<div id="businessList"></div>
+</section>
+
+<section id="worship" class="panel hidden">
+<h2>📿 الأذكار والعبادات</h2>
+<p>سبحان الله وبحمده، سبحان الله العظيم.</p>
+<p>أستغفر الله وأتوب إليه.</p>
+<p>اللهم صل وسلم على نبينا محمد.</p>
+</section>
+
+<section id="history" class="panel hidden">
+<h2>📋 السجل</h2>
+<p>بياناتك محفوظة محلياً على هذا الجهاز.</p>
+<button onclick="exportData()">تصدير نسخة احتياطية</button>
+</section>
+
+<section id="settings" class="panel hidden">
+<h2>⚙️ الإعدادات</h2>
+<label>نظام الساعة</label>
+<select id="hourMode" onchange="updateClock()">
+<option value="12">12 ساعة</option>
+<option value="24">24 ساعة</option>
+</select>
+<button onclick="speak('أهلاً بك في ذكرني')">اختبار الصوت</button>
+<button onclick="exportData()">تصدير بياناتي</button>
+</section>
+
+<section id="about" class="panel hidden">
+<h2>حول ذكرني</h2>
+<p>ذكرني: مساعدك الشخصي لتنظيم المواعيد والمعلومات والحسابات.</p>
+<p>هذه نسخة أولية تجريبية تعمل على الجهاز.</p>
+</section>
+</main>
+
+<nav>
+<button onclick="showSection('home')">الرئيسية</button>
+<button onclick="showSection('history')">السجل</button>
+<button onclick="showSection('settings')">الإعدادات</button>
+<button onclick="showSection('about')">حول التطبيق</button>
+</nav>
+
+<script>
+const keys=['reminders','health','people','future','business','files'];
+
+function getData(k){
+try{return JSON.parse(localStorage.getItem('zakkerni_'+k)||'[]')}
+catch(e){return []}
+}
+
+function saveData(k,data){
+localStorage.setItem('zakkerni_'+k,JSON.stringify(data));
+render(k);
+}
+
+function addItem(section,textId,dateId){
+const input=document.getElementById(textId);
+const text=input.value.trim();
+if(!text){alert('اكتب المعلومات أولاً');return}
+const data=getData(section);
+data.push({text,date:dateId?document.getElementById(dateId).value:''});
+saveData(section,data);
+input.value='';
+if(dateId)document.getElementById(dateId).value='';
+}
+
+function addDebt(){
+const name=document.getElementById('customerText').value.trim();
+const amount=document.getElementById('debtText').value;
+if(!name||!amount){alert('أدخل اسم الزبون والمبلغ');return}
+const data=getData('business');
+data.push({text:name+' - المبلغ: '+amount});
+saveData('business',data);
+document.getElementById('customerText').value='';
+document.getElementById('debtText').value='';
+}
+
+function render(k){
+const list=document.getElementById(k+'List');
+if(!list)return;
+const data=getData(k);
+list.innerHTML='';
+data.forEach((item,index)=>{
+const div=document.createElement('div');
+div.className='item';
+div.textContent=item.text+(item.date?' — '+item.date:'');
+const del=document.createElement('button');
+del.textContent='حذف';
+del.onclick=()=>{
+const updated=getData(k);
+updated.splice(index,1);
+saveData(k,updated);
+};
+div.appendChild(del);
+list.appendChild(div);
+});
+}
+
+function saveFiles(){
+const input=document.getElementById('fileInput');
+const names=Array.from(input.files).map(f=>({text:f.name}));
+const data=getData('files').concat(names);
+saveData('files',data);
+input.value='';
+}
+
+function showSection(id){
+document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+window.scrollTo(0,0);
+}
+
+function speak(text){
+if('speechSynthesis' in window){
+const msg=new SpeechSynthesisUtterance(text);
+msg.lang='ar-SA';
+speechSynthesis.speak(msg);
+}else alert('النطق الصوتي غير مدعوم في هذا المتصفح');
+}
+
+function updateClock(){
+const now=new Date();
+const mode=document.getElementById('hourMode')?.value||'12';
+document.getElementById('clock').textContent=
+now.toLocaleTimeString('ar-JO',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:mode==='12'});
+document.getElementById('date').textContent=
+now.toLocaleDateString('ar-JO',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+
+' | '+new Intl.DateTimeFormat('ar-JO-u-ca-islamic',{dateStyle:'long'}).format(now)+' هـ';
+}
+
+function exportData(){
+const backup={};
+keys.forEach(k=>backup[k]=getData(k));
+const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download='zakkerni-backup.json';a.click();
+URL.revokeObjectURL(url);
+}
+
+keys.forEach(render);
+updateClock();
+setInterval(updateClock,1000);
+</script>
+</body>
+</html>
