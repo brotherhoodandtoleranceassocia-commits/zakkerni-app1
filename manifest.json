@@ -1,0 +1,12 @@
+
+{
+  "name": "ذكرني - مساعدك الشخصي",
+  "short_name": "ذكرني",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f2f4ff",
+  "theme_color": "#4f46e5",
+  "description": "التذكيرات والمواعيد والديون والأذكار"
+}
