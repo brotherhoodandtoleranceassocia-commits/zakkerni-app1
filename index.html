@@ -1,96 +1,204 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6840d8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ذكرني</title>
 <style>
-:root{--purple:#6840d8;--purple2:#8b68ed;--ink:#30234f;--muted:#8c82a5;--bg:#f4f0ff;--line:#e7e0f7}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink);min-height:100vh}
-.app{max-width:520px;min-height:100vh;margin:auto;padding:0 15px 30px;background:linear-gradient(180deg,#f4efff,#fbfaff 60%,#f1edff)}
-.top{margin:0 -15px;padding:23px 18px 18px;min-height:112px;text-align:center;color:white;border-radius:0 0 28px 28px;background:radial-gradient(circle at 15% 15%,#ffffff35,transparent 30%),linear-gradient(135deg,#4d27db,#7b4be9 58%,#9b75f2);box-shadow:0 8px 24px #5b39c738}
-.brand{font-size:31px;font-weight:bold}.brand .bell{font-size:27px;margin-left:7px}.tagline{font-size:12px;color:#eee8ff;margin-top:5px}
-.date-panel{margin:14px 0 15px;padding:14px 13px;display:flex;align-items:center;justify-content:space-around;gap:8px;border:1px solid #e3dafd;border-radius:19px;background:#ffffffed;box-shadow:0 5px 17px #583ea41a}
-.date-copy,.time-copy{min-width:0;flex:1;text-align:center}.date-label{display:block;color:#8b7bb5;font-size:10px;margin-bottom:5px}
-#date{font-size:11px;line-height:1.6;color:#544779}.date-divider{width:1px;height:42px;background:#e5def6}
-.clock{font-size:29px;line-height:1.1;color:#6037d7;font-weight:bold}.clock-mark{font-size:30px;color:#8b6be9}
-.welcome{margin:0 0 20px;padding:17px 16px;display:flex;align-items:center;gap:12px;border:1px solid #e6dcff;border-radius:20px;background:linear-gradient(110deg,#eee6ff,#fff 70%);box-shadow:0 5px 16px #583ea414}
-.welcome-mark{flex:0 0 48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#7e55e9,#512bd0);color:white;font-size:26px}
-.welcome h2{font-size:17px;margin:0 0 6px;color:#35245f}.welcome p{font-size:11px;line-height:1.7;color:#766b91;margin:0}
-.section-title{font-size:16px;color:#392765;margin:22px 2px 13px;font-weight:bold}.section-title small{display:block;font-size:10px;color:#9588b1;font-weight:normal;margin-top:4px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.tile{position:relative;min-height:139px;padding:15px 13px 18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(155deg,#fff,#fbf9ff);color:var(--ink);text-align:right;box-shadow:0 5px 15px #50379117;cursor:pointer;font-family:inherit}
-.tile:active{transform:scale(.975)}.symbol{width:58px;height:58px;border-radius:18px;margin-bottom:10px;background:linear-gradient(145deg,#eee8ff,#e2d7ff);color:#7048dd;display:grid;place-items:center;box-shadow:inset 0 1px 0 #fff}.symbol svg{width:43px;height:43px;display:block}
-.tile:nth-child(4n+2) .symbol{background:linear-gradient(145deg,#ffe9ed,#ffd9e2);color:#e45c79}.tile:nth-child(4n+3) .symbol{background:linear-gradient(145deg,#e4f6ef,#d2f0e4);color:#299d77}.tile:nth-child(4n+4) .symbol{background:linear-gradient(145deg,#fff1d9,#ffe5b5);color:#d99629}
-.tile strong{display:block;font-size:13px;margin-bottom:5px}.tile small{font-size:10px;color:#9185aa}.tile:after{content:"🎙";position:absolute;left:11px;bottom:11px;width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#f0eaff;font-size:15px}
-.panel{display:none;margin-top:18px;padding:18px;border-radius:20px;background:white;border:1px solid var(--line);box-shadow:0 6px 20px #50379114}.panel.active{display:block}.panel h3{margin:0 0 8px;color:#4c2d9e;font-size:19px}
-.muted{color:var(--muted);font-size:12px;line-height:1.7}.back{margin-bottom:14px}
-button{border:0;border-radius:12px;padding:12px 16px;background:linear-gradient(135deg,#7046df,#8b65ee);color:white;font-weight:bold;font-family:inherit;cursor:pointer}
-button.secondary{background:#eee8fb;color:#5d439c}button.danger{background:#c94c70}button:disabled{opacity:.45;cursor:not-allowed}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-.entry{padding:12px;margin:9px 0;border-radius:13px;background:#faf8ff;border:1px solid #e8e1f6;font-size:13px}
-.entry audio{width:100%;margin-top:9px}.entry .meta{font-size:11px;color:var(--muted);margin-top:5px}
-input{display:block;width:100%;padding:13px;margin:10px 0;border-radius:11px;border:1px solid #ded5f3;background:#faf8ff;color:var(--ink);font-family:inherit;font-size:14px}
-.sound-note{margin:12px 0;padding:11px;border-radius:12px;background:#f2edff;color:#7145d9;font-size:12px;font-weight:bold}
-.record-status{margin-top:10px;font-size:12px;color:#7659bd;min-height:18px}
-.footer{text-align:center;margin-top:28px;color:#a096b7;font-size:11px}
-#alarmOverlay{display:none;position:fixed;inset:0;background:#271454e8;z-index:10;align-items:center;justify-content:center;padding:20px}
-.alarmCard{width:100%;max-width:380px;background:white;color:var(--ink);padding:28px;border-radius:23px;text-align:center;box-shadow:0 15px 40px #0003}
-.alarmCard h2{color:#7046df}.alarmCard p{font-size:18px}
-@media(max-width:370px){.app{padding-left:11px;padding-right:11px}.top{margin-left:-11px;margin-right:-11px}.tile{min-height:132px}.date-copy #date{font-size:10px}}
+body{margin:0;background:#eee8ff;font-family:Tahoma,Arial}
+.app{position:relative;width:100%;max-width:691px;margin:auto}
+.design{width:100%;display:block}
+button{position:absolute;border:0;background:transparent;
+border-radius:50%;cursor:pointer}
+#reminders{left:20%;top:45%;width:22%;height:8%}
+#medicine{left:69%;top:45%;width:22%;height:8%}
+#people{left:20%;top:63%;width:22%;height:8%}
+#files{left:69%;top:63%;width:22%;height:8%}
+#notes{left:42%;top:81%;width:22%;height:8%}
+#settings{left:32%;top:92%;width:18%;height:6%}
+#log{left:55%;top:92%;width:18%;height:6%}
+#home{left:78%;top:92%;width:18%;height:6%}
+#about{left:5%;top:92%;width:18%;height:6%}
+.panel{
+display:none;position:fixed;z-index:5;bottom:3%;left:4%;
+width:92%;max-height:75vh;overflow:auto;
+background:white;border-radius:22px;padding:20px;
+box-shadow:0 5px 25px #5555;text-align:center;
+}
+.panel h2{color:#5015c9}
+.panel button.action{
+position:static;background:#5719d5;color:white;
+border:0;border-radius:12px;padding:12px;margin:6px;
+font-size:16px;width:auto;height:auto
+}
+.panel button.close{background:#eee;color:#333}
+.record{padding:12px;border-bottom:1px solid #ddd}
+audio{width:100%}
 </style>
 </head>
 <body>
+
 <div class="app">
-<header class="top"><div class="brand"><span class="bell">🔔</span>ذَكِّرني</div><div class="tagline">مساعدك الشخصي • سجّل بصوتك دون كتابة</div></header>
-<section class="date-panel" aria-label="الوقت والتاريخ"><div class="date-copy"><span class="date-label">اليوم والتاريخ</span><div id="date"></div></div><div class="date-divider"></div><div class="time-copy"><span class="date-label">الوقت الآن</span><div class="clock" id="clock">00:00</div></div><span class="clock-mark">◷</span></section>
-<section class="welcome"><div class="welcome-mark">✦</div><div><h2>مرحباً بك في ذكرني</h2><p>كل أقسامك تعمل بالتسجيل الصوتي؛ اضغط على القسم وتحدث مباشرة دون كتابة.</p></div></section>
-<div id="home">
-<div class="section-title">أقسام التطبيق <small>اضغط على القسم لتسجيل معلومتك بصوتك</small></div>
-<div class="grid">
-<button class="tile" onclick="openSection('reminders')"><span class="symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="21" fill="none" stroke="currentColor" stroke-width="4"/><path d="M32 20v15l10 6M24 7h16M32 7v6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M12 14l5 5M52 14l-5 5" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span><strong>التذكيرات والمواعيد</strong><small>مواعيدك المهمة وتنبيهاتك</small></button>
-<button class="tile" onclick="openSection('health')"><span class="symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 55S9 41 9 23c0-13 17-18 23-5 6-13 23-8 23 5 0 18-23 32-23 32Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M32 22v21M21.5 32.5h21" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span><strong>الأدوية والصحة</strong><small>معلوماتك الصحية والدواء</small></button>
-<button class="tile" onclick="openSection('people')"><span class="symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="24" cy="21" r="10" fill="none" stroke="currentColor" stroke-width="4"/><path d="M6 53c1-12 8-18 18-18s17 6 18 18" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="46" cy="25" r="7" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M43 39c8-1 13 4 15 12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg></span><strong>الأشخاص ومعلوماتهم</strong><small>أسماء ومعلومات الأشخاص</small></button>
-<button class="tile" onclick="openSection('files')"><span class="symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 17a5 5 0 0 1 5-5h13l6 7h15a5 5 0 0 1 5 5v25a5 5 0 0 1-5 5H15a5 5 0 0 1-5-5Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="m22 39 7-8 6 6 5-5 8 10H18Z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><circle cx="42" cy="27" r="3" fill="currentColor"/></svg></span><strong>الصور والملفات</strong><small>ملاحظاتك الصوتية عن ملفاتك</small></button>
-<button class="tile" onclick="openSection('audio')"><span class="symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="23" y="7" width="18" height="34" rx="9" fill="none" stroke="currentColor" stroke-width="4"/><path d="M14 30v3a18 18 0 0 0 36 0v-3M32 51v7M23 58h18" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M32 15v17" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><strong>التسجيلات الصوتية</strong><small>كل تسجيلاتك المحفوظة</small></button>
-<button class="tile" onclick="openSection('future')"><span class="symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 16a5 5 0 0 1 5-5h38a5 5 0 0 1 5 5v30a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5Z" fill="none" stroke="currentColor" stroke-width="4"/><path d="m10 17 22 18 22-18" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M43 43h8M47 39v8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><strong>رسائل المستقبل</strong><small>رسائل تسجلها لنفسك</small></button>
-<button class="tile" onclick="openSection('business')"><span class="symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 54h48M13 54V24h38v30M22 24V12h20v12" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M21 34h5M38 34h5M21 44h5M38 44h5M29 54V43h7v11" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span><strong>التجار والحسابات</strong><small>بياناتك التجارية والحسابات</small></button>
-<button class="tile" onclick="openSection('worship')"><span class="symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M45 8a24 24 0 1 0 11 39A22 22 0 0 1 45 8Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="m17 18 2 4 4 1-4 2-2 4-2-4-4-2 4-1ZM42 37l2 4 4 1-4 2-2 4-2-4-4-2 4-1Z" fill="currentColor"/></svg></span><strong>الأذكار والعبادات</strong><small>أذكارك وتذكيراتك اليومية</small></button>
-</div></div>
-<div id="panels"></div>
-<div class="footer">ذكرني • معلوماتك وذكرياتك في مكان واحد</div>
+<img class="design" src="design.png" alt="ذكرني">
+
+<button id="reminders"></button>
+<button id="medicine"></button>
+<button id="people"></button>
+<button id="files"></button>
+<button id="notes"></button>
+<button id="settings"></button>
+<button id="log"></button>
+<button id="home"></button>
+<button id="about"></button>
 </div>
-<div id="alarmOverlay"><div class="alarmCard"><h2>🔔 انتبه</h2><p id="alarmText"></p><button class="danger" onclick="stopAlarm()">إيقاف التنبيه</button></div></div>
+
+<div class="panel" id="panel">
+<h2 id="heading">ذكرني</h2>
+<p>تحدث الآن لحفظ معلوماتك بصوتك</p>
+<button class="action" id="start">🎙️ بدء التسجيل</button>
+<button class="action" id="stop" disabled>إيقاف وحفظ</button>
+<div id="recordings"></div>
+<button class="action close" id="close">إغلاق</button>
+</div>
+
 <script>
-const sections=[
-{id:"reminders",title:"التذكيرات والمواعيد",desc:"سجّل التذكير بصوتك وحدد موعد التنبيه."},
-{id:"health",title:"الأدوية والصحة",desc:"سجّل اسم الدواء أو المعلومة الصحية بصوتك."},
-{id:"people",title:"الأشخاص ومعلوماتهم",desc:"سجّل اسم الشخص والمعلومات التي تريد تذكرها."},
-{id:"files",title:"الصور والملفات",desc:"سجّل ملاحظة صوتية مرتبطة بملف أو صورة."},
-{id:"audio",title:"التسجيلات الصوتية",desc:"مساحة لجميع تسجيلاتك الصوتية."},
-{id:"future",title:"رسائل المستقبل",desc:"سجّل رسالة صوتية وحدد تاريخ تذكيرك بها."},
-{id:"business",title:"التجار والحسابات",desc:"سجّل بيانات التاجر أو الحساب بصوتك."},
-{id:"worship",title:"الأذكار والعبادات",desc:"سجّل الذكر أو العبادة التي تريد تذكرها."}
-];
-const panels=document.getElementById("panels");
-panels.innerHTML=sections.map(s=>`<section class="panel" id="${s.id}"><button class="secondary back" onclick="goHome()">رجوع</button><h3>${s.title}</h3><p class="muted">${s.desc}</p>${s.id==="reminders"||s.id==="future"?`<label class="muted" for="${s.id}Time">موعد التنبيه (اختياري)</label><input id="${s.id}Time" type="datetime-local">`:``}<div class="sound-note">🎙 اضغط «بدء التسجيل» وتحدث. سيُحفظ ملف صوتك نفسه، ولن يُحوّل إلى كتابة.</div><div class="actions"><button id="${s.id}Start" onclick="startRecording('${s.id}')">● بدء التسجيل</button><button class="danger" id="${s.id}Stop" onclick="stopRecording()" disabled>إيقاف وحفظ</button></div><div class="record-status" id="${s.id}Status"></div><div id="${s.id}List"></div></section>`).join("");
-function openSection(id){document.getElementById("home").style.display="none";document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");renderRecords(id)}
-function goHome(){if(recorder&&recorder.state==="recording")stopRecording();document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));document.getElementById("home").style.display="block"}
-function updateClock(){const n=new Date();document.getElementById("clock").textContent=n.toLocaleTimeString("ar",{hour:"2-digit",minute:"2-digit"});document.getElementById("date").textContent=n.toLocaleDateString("ar",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}updateClock();setInterval(updateClock,1000);
-let db,recorder=null,chunks=[],activeSection=null,activeStream=null,alarmTimer=null,alarmInterval=null,audioCtx=null;
-function openDB(){return new Promise((resolve,reject)=>{if(db)return resolve(db);const req=indexedDB.open("ZakkerniVoiceRecords",1);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains("records"))d.createObjectStore("records",{keyPath:"id",autoIncrement:true})};req.onsuccess=()=>{db=req.result;resolve(db)};req.onerror=()=>reject(req.error)})}
-async function startRecording(section){try{if(recorder&&recorder.state==="recording")return;await openDB();activeSection=section;activeStream=await navigator.mediaDevices.getUserMedia({audio:true});chunks=[];recorder=new MediaRecorder(activeStream);recorder.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};recorder.onstop=async()=>{const blob=new Blob(chunks,{type:recorder.mimeType||"audio/webm"});const title=sections.find(s=>s.id===section)?.title||"تسجيل صوتي";const time=document.getElementById(section+"Time")?.value||"";const tx=db.transaction("records","readwrite");tx.objectStore("records").add({section,title,time,blob,createdAt:new Date().toISOString()});tx.oncomplete=()=>{document.getElementById(section+"Status").textContent="تم حفظ التسجيل الصوتي بنجاح.";renderRecords(section)};activeStream?.getTracks().forEach(t=>t.stop());activeStream=null;document.getElementById(section+"Start").disabled=false;document.getElementById(section+"Stop").disabled=true};recorder.start();document.getElementById(section+"Start").disabled=true;document.getElementById(section+"Stop").disabled=false;document.getElementById(section+"Status").textContent="جارٍ التسجيل الآن..."}catch(e){alert("تعذر بدء التسجيل. اسمح للتطبيق باستخدام الميكروفون، وافتحه عبر HTTPS أو من خلال GitHub Pages.")}}
-function stopRecording(){if(recorder&&recorder.state!=="inactive")recorder.stop()}
-async function renderRecords(section){try{await openDB();const tx=db.transaction("records","readonly");const req=tx.objectStore("records").getAll();req.onsuccess=()=>{const list=document.getElementById(section+"List");if(!list)return;list.innerHTML="";req.result.filter(r=>r.section===section).sort((a,b)=>b.id-a.id).forEach(r=>{const url=URL.createObjectURL(r.blob);const el=document.createElement("div");el.className="entry";const title=document.createElement("strong");title.textContent=r.title;const meta=document.createElement("div");meta.className="meta";meta.textContent=new Date(r.createdAt).toLocaleString("ar");el.append(title,meta);if(r.time){const t=document.createElement("div");t.className="meta";t.textContent="موعد التذكير: "+new Date(r.time).toLocaleString("ar");el.append(t)}const audio=document.createElement("audio");audio.controls=true;audio.src=url;el.append(audio);const del=document.createElement("button");del.className="danger";del.style.marginTop="8px";del.textContent="حذف التسجيل";del.onclick=()=>deleteRecord(r.id,section);el.append(del);list.append(el)})}}catch(e){console.error(e)}}
-async function deleteRecord(id,section){await openDB();const tx=db.transaction("records","readwrite");tx.objectStore("records").delete(id);tx.oncomplete=()=>renderRecords(section)}
-async function loadAllReminders(){await openDB();const tx=db.transaction("records","readonly");const req=tx.objectStore("records").getAll();req.onsuccess=()=>{req.result.filter(r=>r.time&&new Date(r.time).getTime()>Date.now()).forEach(r=>{const delay=new Date(r.time).getTime()-Date.now();setTimeout(()=>showAlarm(r.title),delay)})}}
-function showAlarm(title){document.getElementById("alarmText").textContent=title||"لديك تذكير";document.getElementById("alarmOverlay").style.display="flex";playAttention();alarmInterval=setInterval(playAttention,1500);if("Notification"in window&&Notification.permission==="granted")new Notification("انتبه",{body:title||"لديك تذكير"})}
-function playAttention(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioCtx=audioCtx||new AC();if(audioCtx.state==="suspended")audioCtx.resume();[[880,0],[660,.25],[990,.52]].forEach(([freq,offset])=>{const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type="sine";osc.frequency.value=freq;gain.gain.setValueAtTime(.0001,audioCtx.currentTime+offset);gain.gain.exponentialRampToValueAtTime(.18,audioCtx.currentTime+offset+.025);gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+offset+.22);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(audioCtx.currentTime+offset);osc.stop(audioCtx.currentTime+offset+.24)})}catch(e){}}
-function stopAlarm(){clearInterval(alarmInterval);document.getElementById("alarmOverlay").style.display="none"}
-document.addEventListener("click",()=>{if("Notification"in window&&Notification.permission==="default")Notification.requestPermission().catch(()=>{})},{once:true});
-loadAllReminders();
+const names={
+reminders:"التذكيرات",
+medicine:"مواعيد الأدوية",
+people:"الأشخاص",
+files:"الملفات والصور",
+notes:"الملاحظات",
+settings:"الإعدادات",
+log:"السجل",
+about:"حول التطبيق"
+};
+
+let category="";
+let recorder=null;
+let chunks=[];
+let stream=null;
+
+const panel=document.getElementById("panel");
+const heading=document.getElementById("heading");
+
+const DB="ZakkerniDatabase";
+
+function database(){
+return new Promise((resolve,reject)=>{
+let request=indexedDB.open(DB,1);
+request.onupgradeneeded=()=>{
+request.result.createObjectStore("audio",
+{keyPath:"id",autoIncrement:true});
+};
+request.onsuccess=()=>resolve(request.result);
+request.onerror=()=>reject(request.error);
+});
+}
+
+async function save(blob){
+let db=await database();
+let tx=db.transaction("audio","readwrite");
+tx.objectStore("audio").add({
+category:category,
+blob:blob,
+date:new Date().toLocaleString("ar")
+});
+tx.oncomplete=loadRecordings;
+}
+
+async function loadRecordings(){
+let db=await database();
+let tx=db.transaction("audio","readonly");
+let request=tx.objectStore("audio").getAll();
+
+request.onsuccess=()=>{
+let box=document.getElementById("recordings");
+box.innerHTML="<h3>التسجيلات المحفوظة</h3>";
+
+request.result
+.filter(x=>x.category===category)
+.forEach(x=>{
+let div=document.createElement("div");
+div.className="record";
+
+let date=document.createElement("p");
+date.textContent=x.date;
+
+let audio=document.createElement("audio");
+audio.controls=true;
+audio.src=URL.createObjectURL(x.blob);
+
+let del=document.createElement("button");
+del.className="action";
+del.textContent="حذف";
+del.onclick=async()=>{
+let db=await database();
+db.transaction("audio","readwrite")
+.objectStore("audio").delete(x.id);
+div.remove();
+};
+
+div.append(date,audio,del);
+box.appendChild(div);
+});
+};
+}
+
+function openSection(id){
+category=id;
+heading.textContent=names[id];
+panel.style.display="block";
+loadRecordings();
+}
+
+Object.keys(names).forEach(id=>{
+document.getElementById(id).onclick=()=>{
+if(id==="home"){
+panel.style.display="none";
+return;
+}
+openSection(id);
+};
+});
+
+document.getElementById("start").onclick=async()=>{
+try{
+stream=await navigator.mediaDevices.getUserMedia({audio:true});
+chunks=[];
+recorder=new MediaRecorder(stream);
+
+recorder.ondataavailable=e=>{
+if(e.data.size)chunks.push(e.data);
+};
+
+recorder.onstart=()=>{
+document.getElementById("start").disabled=true;
+document.getElementById("stop").disabled=false;
+};
+
+recorder.start();
+}catch(e){
+alert("يرجى السماح باستخدام الميكروفون");
+}
+};
+
+document.getElementById("stop").onclick=()=>{
+if(!recorder)return;
+recorder.onstop=async()=>{
+await save(new Blob(chunks,{type:recorder.mimeType}));
+stream.getTracks().forEach(t=>t.stop());
+document.getElementById("start").disabled=false;
+document.getElementById("stop").disabled=true;
+alert("تم حفظ التسجيل الصوتي");
+};
+recorder.stop();
+};
+
+document.getElementById("close").onclick=()=>{
+panel.style.display="none";
+};
 </script>
 </body>
 </html>
