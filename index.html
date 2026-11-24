@@ -6,64 +6,447 @@
 <meta name="theme-color" content="#4f46e5">
 <title>ذكرني - مساعدك الشخصي</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f2f4ff;color:#20243a}
-header{background:#4f46e5;color:white;padding:22px 16px;text-align:center;border-radius:0 0 25px 25px}header h1{margin:5px;font-size:27px}header p{margin:8px 0}#clock{font-size:20px;font-weight:bold}
-main{padding:16px;max-width:650px;margin:auto}h2{font-size:20px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.card{background:white;border:0;border-radius:17px;padding:18px 8px;min-height:105px;text-align:center;box-shadow:0 3px 12px #20205012;font-size:16px;color:#30344b;cursor:pointer}.card span{display:block;font-size:27px;margin-bottom:9px}
-.panel{background:white;border-radius:17px;padding:16px;margin-top:16px}input,textarea,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d9dbea;border-radius:10px;font-size:16px}
-button{background:#4f46e5;color:white;border:0;padding:12px 17px;border-radius:10px;font-size:15px;cursor:pointer;margin:4px}.item{background:#f2f4ff;padding:12px;border-radius:10px;margin:8px 0;overflow-wrap:anywhere}
-nav{position:sticky;bottom:0;background:white;display:flex;justify-content:space-around;padding:12px 3px;border-top:1px solid #ddd}nav button{background:transparent;color:#45456b;margin:0;padding:8px;font-size:13px}
-small{color:#777}.hidden{display:none}.voice-box{background:#f2f4ff;border-radius:13px;padding:13px;margin:14px 0}.voice-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.voice-actions button{margin:2px}.record-status{font-size:14px;color:#555;margin:8px 2px;min-height:20px}.voice-item{background:white;border:1px solid #e2e4f2;border-radius:11px;padding:10px;margin:8px 0}.voice-item audio{width:100%;margin-top:8px}.voice-item small{display:block;margin:4px 0}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f2f4ff;color:#20243a}
+header{background:#4f46e5;color:white;padding:22px 16px;text-align:center;border-radius:0 0 25px 25px}
+header h1{margin:5px;font-size:27px}header p{margin:8px 0}#clock{font-size:20px;font-weight:bold}
+main{padding:16px;max-width:650px;margin:auto}h2{font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:white;border:0;border-radius:17px;padding:18px 8px;min-height:105px;text-align:center;box-shadow:0 3px 12px #20205012;font-size:16px;color:#30344b;cursor:pointer}
+.card span{display:block;font-size:27px;margin-bottom:9px}
+.panel{background:white;border-radius:17px;padding:16px;margin-top:16px}
+input,textarea,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d9dbea;border-radius:10px;font-size:16px}
+button{background:#4f46e5;color:white;border:0;padding:12px 17px;border-radius:10px;font-size:15px;cursor:pointer;margin:4px}
+.item{background:#f2f4ff;padding:12px;border-radius:10px;margin:8px 0;overflow-wrap:anywhere}
+nav{position:sticky;bottom:0;background:white;display:flex;justify-content:space-around;padding:12px 3px;border-top:1px solid #ddd}
+nav button{background:transparent;color:#45456b;margin:0;padding:8px;font-size:13px}
+small{color:#777}.hidden{display:none}
+.voice-box{background:#f2f4ff;border-radius:13px;padding:13px;margin:14px 0}
+.voice-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.voice-actions button{margin:2px}.record-status{font-size:14px;color:#555;margin:8px 2px;min-height:20px}
+.voice-item{background:white;border:1px solid #e2e4f2;border-radius:11px;padding:10px;margin:8px 0}
+.voice-item audio{width:100%;margin-top:8px}.voice-item small{display:block;margin:4px 0}
+.language-setting{margin:12px 0 18px;padding:12px;background:#f2f4ff;border-radius:12px}
+.language-setting label{display:block;font-weight:bold;margin-bottom:5px}
 </style>
 </head>
 <body>
-<header><h1>🔔 ذكرني</h1><p>مساعدك الشخصي لتنظيم حياتك</p><div id="clock">--:--</div><div id="date"></div></header>
+<header>
+  <h1 data-i18n="appName">🔔 ذكرني</h1>
+  <p data-i18n="tagline">مساعدك الشخصي لتنظيم حياتك</p>
+  <div id="clock">--:--</div><div id="date"></div>
+</header>
+
 <main>
-<section id="home"><div class="panel"><h2>مرحباً بك في ذكرني</h2><p>نظّم مواعيدك وأعمالك واحتفظ بمعلوماتك في مكان واحد.</p></div><h2>خدمات التطبيق</h2>
-<div class="grid">
-<button class="card" onclick="showSection('reminders')"><span>⏰</span>التذكيرات والمواعيد</button>
-<button class="card" onclick="showSection('health')"><span>💊</span>الأدوية والصحة</button>
-<button class="card" onclick="showSection('people')"><span>👥</span>الأشخاص ومعلوماتهم</button>
-<button class="card" onclick="showSection('files')"><span>📁</span>الصور والملفات</button>
-<button class="card" onclick="showSection('audio')"><span>🎙️</span>التسجيلات الصوتية</button>
-<button class="card" onclick="showSection('future')"><span>✉️</span>رسائل المستقبل</button>
-<button class="card" onclick="showSection('business')"><span>🧾</span>التجار والحسابات</button>
-<button class="card" onclick="showSection('worship')"><span>📿</span>الأذكار والعبادات</button>
-</div></section>
-<section id="reminders" class="panel hidden"><h2>⏰ التذكيرات والمواعيد</h2><input id="remText" placeholder="اكتب التذكير"><input id="remDate" type="datetime-local"><button onclick="addItem('reminders','remText','remDate')">إضافة تذكير</button><div id="remindersList"></div></section>
-<section id="health" class="panel hidden"><h2>💊 الأدوية والصحة</h2><input id="medText" placeholder="اسم الدواء والجرعة"><input id="medDate" type="datetime-local"><button onclick="addItem('health','medText','medDate')">حفظ الدواء</button><div id="healthList"></div></section>
-<section id="people" class="panel hidden"><h2>👥 الأشخاص ومعلوماتهم</h2><input id="personText" placeholder="الاسم ورقم الهاتف والمعلومات"><button onclick="addItem('people','personText')">حفظ الشخص</button><div id="peopleList"></div></section>
-<section id="files" class="panel hidden"><h2>📁 الصور والملفات</h2><input id="fileInput" type="file" multiple><button onclick="saveFiles()">حفظ أسماء الملفات</button><div id="filesList"></div><small>هذه النسخة تحفظ أسماء الملفات فقط، ولا تحفظ محتوياتها.</small></section>
-<section id="audio" class="panel hidden"><h2>🎙️ التسجيلات الصوتية</h2><p>سجّل ملاحظاتك الصوتية واحفظها للاستماع إليها لاحقاً.</p></section>
-<section id="future" class="panel hidden"><h2>✉️ رسائل المستقبل</h2><textarea id="futureText" placeholder="اكتب رسالة لنفسك أو لشخص آخر"></textarea><input id="futureDate" type="datetime-local"><button onclick="addItem('future','futureText','futureDate')">حفظ الرسالة</button><div id="futureList"></div></section>
-<section id="business" class="panel hidden"><h2>🧾 التجار والحسابات</h2><input id="customerText" placeholder="اسم الزبون"><input id="debtText" type="number" placeholder="قيمة الدين"><button onclick="addDebt()">حفظ الحساب</button><div id="businessList"></div></section>
-<section id="worship" class="panel hidden"><h2>📿 الأذكار والعبادات</h2><p>سبحان الله وبحمده، سبحان الله العظيم.</p><p>أستغفر الله وأتوب إليه.</p><p>اللهم صل وسلم على نبينا محمد.</p></section>
-<section id="history" class="panel hidden"><h2>📋 السجل</h2><p>بياناتك محفوظة محلياً على هذا الجهاز.</p><button onclick="exportData()">تصدير نسخة احتياطية</button></section>
-<section id="settings" class="panel hidden"><h2>⚙️ الإعدادات</h2><label>نظام الساعة</label><select id="hourMode" onchange="updateClock()"><option value="12">12 ساعة</option><option value="24">24 ساعة</option></select><button onclick="speak('أهلاً بك في ذكرني')">اختبار الصوت</button><button onclick="exportData()">تصدير بياناتي</button></section>
-<section id="about" class="panel hidden"><h2>حول ذكرني</h2><p>ذكرني: مساعدك الشخصي لتنظيم المواعيد والمعلومات والحسابات.</p><p>هذه نسخة أولية تجريبية تعمل على الجهاز.</p></section>
+<section id="home">
+  <div class="panel"><h2 data-i18n="welcome">مرحباً بك في ذكرني</h2>
+    <p data-i18n="intro">نظّم مواعيدك وأعمالك واحتفظ بمعلوماتك في مكان واحد.</p>
+  </div>
+  <h2 data-i18n="services">خدمات التطبيق</h2>
+  <div class="grid">
+    <button class="card" onclick="showSection('reminders')"><span>⏰</span><span data-i18n="reminders">التذكيرات والمواعيد</span></button>
+    <button class="card" onclick="showSection('health')"><span>💊</span><span data-i18n="health">الأدوية والصحة</span></button>
+    <button class="card" onclick="showSection('people')"><span>👥</span><span data-i18n="people">الأشخاص ومعلوماتهم</span></button>
+    <button class="card" onclick="showSection('files')"><span>📁</span><span data-i18n="files">الصور والملفات</span></button>
+    <button class="card" onclick="showSection('audio')"><span>🎙️</span><span data-i18n="audio">التسجيلات الصوتية</span></button>
+    <button class="card" onclick="showSection('future')"><span>✉️</span><span data-i18n="future">رسائل المستقبل</span></button>
+    <button class="card" onclick="showSection('business')"><span>🧾</span><span data-i18n="business">التجار والحسابات</span></button>
+    <button class="card" onclick="showSection('worship')"><span>📿</span><span data-i18n="worship">الأذكار والعبادات</span></button>
+  </div>
+</section>
+
+<section id="reminders" class="panel hidden">
+  <h2 data-i18n="reminders">⏰ التذكيرات والمواعيد</h2>
+  <input id="remText" data-i18n-placeholder="remTextPlaceholder" placeholder="اكتب التذكير">
+  <input id="remDate" type="datetime-local">
+  <button onclick="addItem('reminders','remText','remDate')" data-i18n="addReminder">إضافة تذكير</button>
+  <div id="remindersList"></div>
+</section>
+<section id="health" class="panel hidden">
+  <h2 data-i18n="health">💊 الأدوية والصحة</h2>
+  <input id="medText" data-i18n-placeholder="medPlaceholder" placeholder="اسم الدواء والجرعة">
+  <input id="medDate" type="datetime-local">
+  <button onclick="addItem('health','medText','medDate')" data-i18n="saveMedicine">حفظ الدواء</button>
+  <div id="healthList"></div>
+</section>
+<section id="people" class="panel hidden">
+  <h2 data-i18n="people">👥 الأشخاص ومعلوماتهم</h2>
+  <input id="personText" data-i18n-placeholder="personPlaceholder" placeholder="الاسم ورقم الهاتف والمعلومات">
+  <button onclick="addItem('people','personText')" data-i18n="savePerson">حفظ الشخص</button>
+  <div id="peopleList"></div>
+</section>
+<section id="files" class="panel hidden">
+  <h2 data-i18n="files">📁 الصور والملفات</h2>
+  <input id="fileInput" type="file" multiple>
+  <button onclick="saveFiles()" data-i18n="saveFileNames">حفظ أسماء الملفات</button>
+  <div id="filesList"></div>
+  <small data-i18n="fileNote">هذه النسخة تحفظ أسماء الملفات فقط، ولا تحفظ محتوياتها.</small>
+</section>
+<section id="audio" class="panel hidden">
+  <h2 data-i18n="audio">🎙️ التسجيلات الصوتية</h2>
+  <p data-i18n="audioIntro">سجّل ملاحظاتك الصوتية واحفظها للاستماع إليها لاحقاً.</p>
+</section>
+<section id="future" class="panel hidden">
+  <h2 data-i18n="future">✉️ رسائل المستقبل</h2>
+  <textarea id="futureText" data-i18n-placeholder="futurePlaceholder" placeholder="اكتب رسالة لنفسك أو لشخص آخر"></textarea>
+  <input id="futureDate" type="datetime-local">
+  <button onclick="addItem('future','futureText','futureDate')" data-i18n="saveMessage">حفظ الرسالة</button>
+  <div id="futureList"></div>
+</section>
+<section id="business" class="panel hidden">
+  <h2 data-i18n="business">🧾 التجار والحسابات</h2>
+  <input id="customerText" data-i18n-placeholder="customerPlaceholder" placeholder="اسم الزبون">
+  <input id="debtText" type="number" data-i18n-placeholder="amountPlaceholder" placeholder="قيمة الدين">
+  <button onclick="addDebt()" data-i18n="saveAccount">حفظ الحساب</button>
+  <div id="businessList"></div>
+</section>
+<section id="worship" class="panel hidden">
+  <h2 data-i18n="worship">📿 الأذكار والعبادات</h2>
+  <p data-i18n="dhikr1">سبحان الله وبحمده، سبحان الله العظيم.</p>
+  <p data-i18n="dhikr2">أستغفر الله وأتوب إليه.</p>
+  <p data-i18n="dhikr3">اللهم صل وسلم على نبينا محمد.</p>
+</section>
+<section id="history" class="panel hidden">
+  <h2 data-i18n="history">📋 السجل</h2>
+  <p data-i18n="historyNote">بياناتك محفوظة محلياً على هذا الجهاز.</p>
+  <button onclick="exportData()" data-i18n="exportBackup">تصدير نسخة احتياطية</button>
+</section>
+<section id="settings" class="panel hidden">
+  <h2 data-i18n="settings">⚙️ الإعدادات</h2>
+  <div class="language-setting">
+    <label for="appLanguage" data-i18n="languageLabel">🌐 لغة التطبيق</label>
+    <select id="appLanguage" onchange="changeAppLanguage(this.value)">
+      <option value="ar">العربية</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="de">Deutsch</option>
+      <option value="tr">Türkçe</option>
+      <option value="ur">اردو</option>
+      <option value="hi">हिन्दी</option>
+      <option value="zh">中文</option>
+      <option value="ru">Русский</option>
+    </select>
+    <small data-i18n="languageNote">اختر لغة التطبيق. سيتم حفظ اختيارك على هذا الجهاز.</small>
+  </div>
+  <label data-i18n="clockMode">نظام الساعة</label>
+  <select id="hourMode" onchange="updateClock()">
+    <option value="12" data-i18n="hour12">12 ساعة</option>
+    <option value="24" data-i18n="hour24">24 ساعة</option>
+  </select>
+  <button onclick="speakCurrentWelcome()" data-i18n="voiceTest">اختبار الصوت</button>
+  <button onclick="exportData()" data-i18n="exportMyData">تصدير بياناتي</button>
+</section>
+<section id="about" class="panel hidden">
+  <h2 data-i18n="about">حول ذكرني</h2>
+  <p data-i18n="aboutText">ذكرني: مساعدك الشخصي لتنظيم المواعيد والمعلومات والحسابات.</p>
+  <p data-i18n="versionText">هذه نسخة أولية تجريبية تعمل على الجهاز.</p>
+</section>
 </main>
-<nav><button onclick="showSection('home')">الرئيسية</button><button onclick="showSection('history')">السجل</button><button onclick="showSection('settings')">الإعدادات</button><button onclick="showSection('about')">حول التطبيق</button></nav>
+
+<nav>
+  <button onclick="showSection('home')" data-i18n="home">الرئيسية</button>
+  <button onclick="showSection('history')" data-i18n="history">السجل</button>
+  <button onclick="showSection('settings')" data-i18n="settings">الإعدادات</button>
+  <button onclick="showSection('about')" data-i18n="about">حول التطبيق</button>
+</nav>
+
 <script>
 'use strict';
+
+const dictionaries = {
+ar:{
+appName:"🔔 ذكرني",tagline:"مساعدك الشخصي لتنظيم حياتك",welcome:"مرحباً بك في ذكرني",intro:"نظّم مواعيدك وأعمالك واحتفظ بمعلوماتك في مكان واحد.",services:"خدمات التطبيق",
+reminders:"التذكيرات والمواعيد",health:"الأدوية والصحة",people:"الأشخاص ومعلوماتهم",files:"الصور والملفات",audio:"التسجيلات الصوتية",future:"رسائل المستقبل",business:"التجار والحسابات",worship:"الأذكار والعبادات",
+addReminder:"إضافة تذكير",saveMedicine:"حفظ الدواء",savePerson:"حفظ الشخص",saveFileNames:"حفظ أسماء الملفات",fileNote:"هذه النسخة تحفظ أسماء الملفات فقط، ولا تحفظ محتوياتها.",audioIntro:"سجّل ملاحظاتك الصوتية واحفظها للاستماع إليها لاحقاً.",saveMessage:"حفظ الرسالة",saveAccount:"حفظ الحساب",
+history:"📋 السجل",historyNote:"بياناتك محفوظة محلياً على هذا الجهاز.",exportBackup:"تصدير نسخة احتياطية",settings:"⚙️ الإعدادات",languageLabel:"🌐 لغة التطبيق",languageNote:"اختر لغة التطبيق. سيتم حفظ اختيارك على هذا الجهاز.",clockMode:"نظام الساعة",hour12:"12 ساعة",hour24:"24 ساعة",voiceTest:"اختبار الصوت",exportMyData:"تصدير بياناتي",about:"حول ذكرني",aboutText:"ذكرني: مساعدك الشخصي لتنظيم المواعيد والمعلومات والحسابات.",versionText:"هذه نسخة أولية تجريبية تعمل على الجهاز.",
+remTextPlaceholder:"اكتب التذكير",medPlaceholder:"اسم الدواء والجرعة",personPlaceholder:"الاسم ورقم الهاتف والمعلومات",futurePlaceholder:"اكتب رسالة لنفسك أو لشخص آخر",customerPlaceholder:"اسم الزبون",amountPlaceholder:"قيمة الدين",
+dhikr1:"سبحان الله وبحمده، سبححان الله العظيم.",dhikr2:"أستغفر الله وأتوب إليه.",dhikr3:"اللهم صل وسلم على نبينا محمد.",
+writeFirst:"اكتب المعلومات أولاً",saved:"تم الحفظ",delete:"حذف",noVoice:"لا توجد تسجيلات محفوظة في هذا القسم بعد.",startRecord:"🎙️ ابدأ التسجيل",stopRecord:"⏹ إيقاف وحفظ",voiceHeading:"🎙️ ملاحظات صوتية لهذا القسم",voicePermission:"اضغط على ابدأ التسجيل للسماح باستخدام الميكروفون.",recording:"🔴 التسجيل يعمل الآن... اضغط إيقاف وحفظ عند الانتهاء.",savedVoice:"تم حفظ التسجيل الصوتي بنجاح.",deleteVoiceConfirm:"هل تريد حذف هذا التسجيل؟",voiceDeleteError:"تعذر حذف التسجيل.",voiceUnsupported:"هذا المتصفح لا يدعم التسجيل الصوتي. جرّب متصفح Chrome حديث.",secureMic:"الميكروفون يحتاج إلى رابط آمن يبدأ بـ https://.",micDenied:"تم رفض إذن الميكروفون. اسمح لمتصفحك باستخدام الميكروفون من إعدادات الموقع.",micError:"تعذر تشغيل الميكروفون.",micBusy:"الميكروفون مستخدم من تطبيق آخر. أغلق التطبيق الآخر ثم حاول.",noMic:"لم يتم العثور على ميكروفون متصل بالجهاز.",backupName:"zakkerni-backup.json",debtLabel:"المبلغ:",enterCustomer:"أدخل اسم الزبون والمبلغ",filesSaved:"تم حفظ أسماء الملفات",hour12Label:"12 ساعة",hour24Label:"24 ساعة",welcomeSpeech:"أهلاً بك في ذكرني"
+},
+en:{
+appName:"🔔 Remember Me",tagline:"Your personal life organizer",welcome:"Welcome to Remember Me",intro:"Organize your appointments and keep your information in one place.",services:"App services",
+reminders:"Reminders and appointments",health:"Medicine and health",people:"People and contacts",files:"Photos and files",audio:"Voice recordings",future:"Future messages",business:"Business and accounts",worship:"Remembrance and worship",
+addReminder:"Add reminder",saveMedicine:"Save medicine",savePerson:"Save person",saveFileNames:"Save file names",fileNote:"This version saves file names only, not file contents.",audioIntro:"Record voice notes and save them to listen later.",saveMessage:"Save message",saveAccount:"Save account",
+history:"📋 History",historyNote:"Your data is stored locally on this device.",exportBackup:"Export backup",settings:"⚙️ Settings",languageLabel:"🌐 App language",languageNote:"Choose the app language. Your choice will be saved on this device.",clockMode:"Clock format",hour12:"12-hour",hour24:"24-hour",voiceTest:"Test voice",exportMyData:"Export my data",about:"About Remember Me",aboutText:"Remember Me: your personal assistant for appointments, information and accounts.",versionText:"This is an early trial version that runs on your device.",
+remTextPlaceholder:"Enter a reminder",medPlaceholder:"Medicine name and dose",personPlaceholder:"Name, phone number and information",futurePlaceholder:"Write a message to yourself or someone else",customerPlaceholder:"Customer name",amountPlaceholder:"Debt amount",
+dhikr1:"Glory be to God and praise Him, Glory be to God the Almighty.",dhikr2:"I seek God's forgiveness and repent to Him.",dhikr3:"O God, bless and grant peace to our Prophet Muhammad.",
+writeFirst:"Enter the information first",saved:"Saved",delete:"Delete",noVoice:"There are no recordings saved in this section yet.",startRecord:"🎙️ Start recording",stopRecord:"⏹ Stop and save",voiceHeading:"🎙️ Voice notes for this section",voicePermission:"Press Start recording to allow microphone access.",recording:"🔴 Recording now... Press Stop and save when finished.",savedVoice:"Voice recording saved successfully.",deleteVoiceConfirm:"Do you want to delete this recording?",voiceDeleteError:"Could not delete the recording.",voiceUnsupported:"This browser does not support audio recording. Try a recent version of Chrome.",secureMic:"The microphone requires a secure https:// address.",micDenied:"Microphone permission was denied. Allow microphone access in your browser site settings.",micError:"Could not start the microphone.",micBusy:"The microphone is being used by another app. Close it and try again.",noMic:"No microphone was found.",backupName:"zakkerni-backup.json",debtLabel:"Amount:",enterCustomer:"Enter the customer name and amount",filesSaved:"File names saved",hour12Label:"12-hour",hour24Label:"24-hour",welcomeSpeech:"Welcome to Remember Me"
+},
+fr:{
+appName:"🔔 Souviens-toi",tagline:"Votre organisateur personnel",welcome:"Bienvenue",intro:"Organisez vos rendez-vous et gardez vos informations au même endroit.",services:"Services de l'application",
+reminders:"Rappels et rendez-vous",health:"Médicaments et santé",people:"Personnes et contacts",files:"Photos et fichiers",audio:"Enregistrements vocaux",future:"Messages futurs",business:"Commerce et comptes",worship:"Invocations et culte",
+addReminder:"Ajouter un rappel",saveMedicine:"Enregistrer le médicament",savePerson:"Enregistrer la personne",saveFileNames:"Enregistrer les noms",fileNote:"Cette version enregistre uniquement les noms des fichiers.",audioIntro:"Enregistrez des notes vocales pour les écouter plus tard.",saveMessage:"Enregistrer le message",saveAccount:"Enregistrer le compte",
+history:"📋 Historique",historyNote:"Vos données sont enregistrées sur cet appareil.",exportBackup:"Exporter une sauvegarde",settings:"⚙️ Paramètres",languageLabel:"🌐 Langue de l'application",languageNote:"Choisissez la langue. Votre choix sera conservé sur cet appareil.",clockMode:"Format de l'heure",hour12:"12 heures",hour24:"24 heures",voiceTest:"Tester la voix",exportMyData:"Exporter mes données",about:"À propos",aboutText:"Votre assistant personnel pour les rendez-vous et les informations.",versionText:"Version préliminaire installée sur l'appareil.",
+remTextPlaceholder:"Saisir un rappel",medPlaceholder:"Nom du médicament et dose",personPlaceholder:"Nom, téléphone et informations",futurePlaceholder:"Écrire un message",customerPlaceholder:"Nom du client",amountPlaceholder:"Montant de la dette",
+dhikr1:"Gloire à Dieu et louange à Lui.",dhikr2:"Je demande pardon à Dieu et me repens à Lui.",dhikr3:"Que Dieu bénisse notre prophète Muhammad.",
+writeFirst:"Saisissez d'abord les informations",saved:"Enregistré",delete:"Supprimer",noVoice:"Aucun enregistrement dans cette section.",startRecord:"🎙️ Démarrer",stopRecord:"⏹ Arrêter et enregistrer",voiceHeading:"🎙️ Notes vocales",voicePermission:"Appuyez sur Démarrer pour autoriser le microphone.",recording:"🔴 Enregistrement en cours...",savedVoice:"Enregistrement vocal sauvegardé.",deleteVoiceConfirm:"Supprimer cet enregistrement ?",voiceDeleteError:"Impossible de supprimer l'enregistrement.",voiceUnsupported:"Enregistrement audio non pris en charge par ce navigateur.",secureMic:"Le microphone nécessite une adresse https:// sécurisée.",micDenied:"Autorisation du microphone refusée.",micError:"Impossible de démarrer le microphone.",micBusy:"Le microphone est utilisé par une autre application.",noMic:"Aucun microphone trouvé.",backupName:"zakkerni-backup.json",debtLabel:"Montant :",enterCustomer:"Saisissez le nom du client et le montant",filesSaved:"Noms de fichiers enregistrés",hour12Label:"12 heures",hour24Label:"24 heures",welcomeSpeech:"Bienvenue"
+},
+es:{
+appName:"🔔 Recuérdame",tagline:"Tu organizador personal",welcome:"Bienvenido",intro:"Organiza tus citas y guarda tu información en un solo lugar.",services:"Servicios de la aplicación",
+reminders:"Recordatorios y citas",health:"Medicamentos y salud",people:"Personas y contactos",files:"Fotos y archivos",audio:"Grabaciones de voz",future:"Mensajes futuros",business:"Negocios y cuentas",worship:"Recuerdos y culto",
+addReminder:"Añadir recordatorio",saveMedicine:"Guardar medicamento",savePerson:"Guardar persona",saveFileNames:"Guardar nombres de archivos",fileNote:"Esta versión guarda solo los nombres de los archivos.",audioIntro:"Graba notas de voz para escucharlas más tarde.",saveMessage:"Guardar mensaje",saveAccount:"Guardar cuenta",
+history:"📋 Historial",historyNote:"Tus datos se guardan en este dispositivo.",exportBackup:"Exportar copia",settings:"⚙️ Configuración",languageLabel:"🌐 Idioma de la aplicación",languageNote:"Elige el idioma. Tu elección se guardará en este dispositivo.",clockMode:"Formato del reloj",hour12:"12 horas",hour24:"24 horas",voiceTest:"Probar voz",exportMyData:"Exportar mis datos",about:"Acerca de",aboutText:"Tu asistente personal para citas e información.",versionText:"Versión inicial de prueba.",
+remTextPlaceholder:"Escribe un recordatorio",medPlaceholder:"Nombre del medicamento y dosis",personPlaceholder:"Nombre, teléfono e información",futurePlaceholder:"Escribe un mensaje",customerPlaceholder:"Nombre del cliente",amountPlaceholder:"Importe de la deuda",
+dhikr1:"Gloria a Dios y alabanza a Él.",dhikr2:"Pido perdón a Dios y me arrepiento ante Él.",dhikr3:"Que Dios bendiga a nuestro profeta Mahoma.",
+writeFirst:"Introduce la información primero",saved:"Guardado",delete:"Eliminar",noVoice:"Todavía no hay grabaciones en esta sección.",startRecord:"🎙️ Iniciar grabación",stopRecord:"⏹ Detener y guardar",voiceHeading:"🎙️ Notas de voz",voicePermission:"Pulsa Iniciar para permitir el micrófono.",recording:"🔴 Grabando ahora...",savedVoice:"Grabación guardada correctamente.",deleteVoiceConfirm:"¿Eliminar esta grabación?",voiceDeleteError:"No se pudo eliminar la grabación.",voiceUnsupported:"Este navegador no admite grabación de audio.",secureMic:"El micrófono requiere una dirección segura https://.",micDenied:"Se denegó el permiso del micrófono.",micError:"No se pudo iniciar el micrófono.",micBusy:"El micrófono está siendo utilizado por otra aplicación.",noMic:"No se encontró ningún micrófono.",backupName:"zakkerni-backup.json",debtLabel:"Importe:",enterCustomer:"Introduce el nombre del cliente y el importe",filesSaved:"Nombres de archivos guardados",hour12Label:"12 horas",hour24Label:"24 horas",welcomeSpeech:"Bienvenido"
+},
+de:{
+appName:"🔔 Erinnere mich",tagline:"Dein persönlicher Organizer",welcome:"Willkommen",intro:"Organisiere Termine und bewahre deine Informationen an einem Ort auf.",services:"App-Dienste",
+reminders:"Erinnerungen und Termine",health:"Medikamente und Gesundheit",people:"Personen und Kontakte",files:"Fotos und Dateien",audio:"Sprachaufnahmen",future:"Zukünftige Nachrichten",business:"Geschäft und Konten",worship:"Gebete und Andacht",
+addReminder:"Erinnerung hinzufügen",saveMedicine:"Medikament speichern",savePerson:"Person speichern",saveFileNames:"Dateinamen speichern",fileNote:"Diese Version speichert nur Dateinamen.",audioIntro:"Nimm Sprachnotizen auf und höre sie später an.",saveMessage:"Nachricht speichern",saveAccount:"Konto speichern",
+history:"📋 Verlauf",historyNote:"Deine Daten werden lokal auf diesem Gerät gespeichert.",exportBackup:"Sicherung exportieren",settings:"⚙️ Einstellungen",languageLabel:"🌐 App-Sprache",languageNote:"Wähle die Sprache. Deine Auswahl wird gespeichert.",clockMode:"Uhrzeitformat",hour12:"12 Stunden",hour24:"24 Stunden",voiceTest:"Sprachtest",exportMyData:"Meine Daten exportieren",about:"Über die App",aboutText:"Dein persönlicher Assistent für Termine und Informationen.",versionText:"Frühe Testversion.",
+remTextPlaceholder:"Erinnerung eingeben",medPlaceholder:"Medikament und Dosierung",personPlaceholder:"Name, Telefonnummer und Informationen",futurePlaceholder:"Nachricht schreiben",customerPlaceholder:"Kundenname",amountPlaceholder:"Schuldenbetrag",
+dhikr1:"Preis und Lob sei Gott.",dhikr2:"Ich bitte Gott um Vergebung.",dhikr3:"Gott segne unseren Propheten Muhammad.",
+writeFirst:"Bitte zuerst Informationen eingeben",saved:"Gespeichert",delete:"Löschen",noVoice:"Noch keine Aufnahmen in diesem Bereich.",startRecord:"🎙️ Aufnahme starten",stopRecord:"⏹ Stoppen und speichern",voiceHeading:"🎙️ Sprachnotizen",voicePermission:"Drücke Start, um das Mikrofon zu erlauben.",recording:"🔴 Aufnahme läuft...",savedVoice:"Aufnahme erfolgreich gespeichert.",deleteVoiceConfirm:"Diese Aufnahme löschen?",voiceDeleteError:"Aufnahme konnte nicht gelöscht werden.",voiceUnsupported:"Dieser Browser unterstützt keine Audioaufnahme.",secureMic:"Das Mikrofon benötigt eine sichere https://-Adresse.",micDenied:"Mikrofonzugriff wurde verweigert.",micError:"Mikrofon konnte nicht gestartet werden.",micBusy:"Das Mikrofon wird von einer anderen App verwendet.",noMic:"Kein Mikrofon gefunden.",backupName:"zakkerni-backup.json",debtLabel:"Betrag:",enterCustomer:"Kundenname und Betrag eingeben",filesSaved:"Dateinamen gespeichert",hour12Label:"12 Stunden",hour24Label:"24 Stunden",welcomeSpeech:"Willkommen"
+},
+tr:{
+appName:"🔔 Beni Hatırla",tagline:"Kişisel düzenleme yardımcınız",welcome:"Hoş geldiniz",intro:"Randevularınızı düzenleyin ve bilgilerinizi tek yerde saklayın.",services:"Uygulama hizmetleri",
+reminders:"Hatırlatmalar ve randevular",health:"İlaçlar ve sağlık",people:"Kişiler ve bilgiler",files:"Fotoğraflar ve dosyalar",audio:"Ses kayıtları",future:"Gelecek mesajları",business:"İşletme ve hesaplar",worship:"Dualar ve ibadetler",
+addReminder:"Hatırlatma ekle",saveMedicine:"İlacı kaydet",savePerson:"Kişiyi kaydet",saveFileNames:"Dosya adlarını kaydet",fileNote:"Bu sürüm yalnızca dosya adlarını kaydeder.",audioIntro:"Sesli notlar kaydedin ve daha sonra dinleyin.",saveMessage:"Mesajı kaydet",saveAccount:"Hesabı kaydet",
+history:"📋 Geçmiş",historyNote:"Verileriniz bu cihazda saklanır.",exportBackup:"Yedek dışa aktar",settings:"⚙️ Ayarlar",languageLabel:"🌐 Uygulama dili",languageNote:"Dili seçin. Seçiminiz bu cihazda saklanır.",clockMode:"Saat biçimi",hour12:"12 saat",hour24:"24 saat",voiceTest:"Sesi dene",exportMyData:"Verilerimi dışa aktar",about:"Uygulama hakkında",aboutText:"Randevular ve bilgiler için kişisel yardımcınız.",versionText:"Deneme sürümü.",
+remTextPlaceholder:"Hatırlatma yazın",medPlaceholder:"İlaç adı ve doz",personPlaceholder:"Ad, telefon ve bilgiler",futurePlaceholder:"Mesaj yazın",customerPlaceholder:"Müşteri adı",amountPlaceholder:"Borç miktarı",
+dhikr1:"Allah'a hamdolsun.",dhikr2:"Allah'tan bağışlanma diliyorum.",dhikr3:"Allah Peygamberimiz Muhammed'e salât ve selâm etsin.",
+writeFirst:"Önce bilgileri girin",saved:"Kaydedildi",delete:"Sil",noVoice:"Bu bölümde henüz kayıt yok.",startRecord:"🎙️ Kaydı başlat",stopRecord:"⏹ Durdur ve kaydet",voiceHeading:"🎙️ Sesli notlar",voicePermission:"Mikrofon izni için Başlat'a basın.",recording:"🔴 Kayıt yapılıyor...",savedVoice:"Ses kaydı kaydedildi.",deleteVoiceConfirm:"Bu kayıt silinsin mi?",voiceDeleteError:"Kayıt silinemedi.",voiceUnsupported:"Bu tarayıcı ses kaydını desteklemiyor.",secureMic:"Mikrofon için güvenli https:// adresi gerekir.",micDenied:"Mikrofon izni reddedildi.",micError:"Mikrofon başlatılamadı.",micBusy:"Mikrofon başka bir uygulama tarafından kullanılıyor.",noMic:"Mikrofon bulunamadı.",backupName:"zakkerni-backup.json",debtLabel:"Tutar:",enterCustomer:"Müşteri adını ve tutarı girin",filesSaved:"Dosya adları kaydedildi",hour12Label:"12 saat",hour24Label:"24 saat",welcomeSpeech:"Hoş geldiniz"
+},
+ur:{
+appName:"🔔 مجھے یاد دلائیں",tagline:"آپ کا ذاتی منتظم",welcome:"خوش آمدید",intro:"اپنی ملاقاتوں اور معلومات کو ایک جگہ منظم کریں۔",services:"ایپ کی خدمات",
+reminders:"یاد دہانیاں اور ملاقاتیں",health:"ادویات اور صحت",people:"لوگ اور رابطے",files:"تصاویر اور فائلیں",audio:"آواز کی ریکارڈنگ",future:"مستقبل کے پیغامات",business:"کاروبار اور اکاؤنٹس",worship:"اذکار اور عبادات",
+addReminder:"یاد دہانی شامل کریں",saveMedicine:"دوا محفوظ کریں",savePerson:"شخص محفوظ کریں",saveFileNames:"فائلوں کے نام محفوظ کریں",fileNote:"یہ ورژن صرف فائلوں کے نام محفوظ کرتا ہے۔",audioIntro:"آواز کی یادداشت ریکارڈ کریں اور بعد میں سنیں۔",saveMessage:"پیغام محفوظ کریں",saveAccount:"اکاؤنٹ محفوظ کریں",
+history:"📋 ریکارڈ",historyNote:"آپ کا ڈیٹا اسی آلے میں محفوظ ہے۔",exportBackup:"بیک اپ برآمد کریں",settings:"⚙️ ترتیبات",languageLabel:"🌐 ایپ کی زبان",languageNote:"زبان منتخب کریں۔ آپ کا انتخاب محفوظ رہے گا۔",clockMode:"گھڑی کا انداز",hour12:"12 گھنٹے",hour24:"24 گھنٹے",voiceTest:"آواز آزمائیں",exportMyData:"میرا ڈیٹا برآمد کریں",about:"ایپ کے بارے میں",aboutText:"ملاقاتوں اور معلومات کے لیے آپ کا ذاتی معاون۔",versionText:"ابتدائی آزمائشی ورژن۔",
+remTextPlaceholder:"یاد دہانی لکھیں",medPlaceholder:"دوا کا نام اور خوراک",personPlaceholder:"نام، فون نمبر اور معلومات",futurePlaceholder:"پیغام لکھیں",customerPlaceholder:"گاہک کا نام",amountPlaceholder:"قرض کی رقم",
+dhikr1:"اللہ پاک ہے اور اسی کی تعریف ہے۔",dhikr2:"میں اللہ سے معافی مانگتا ہوں۔",dhikr3:"اے اللہ ہمارے نبی محمد پر رحمت و سلامتی نازل فرما۔",
+writeFirst:"پہلے معلومات درج کریں",saved:"محفوظ ہوگیا",delete:"حذف کریں",noVoice:"اس حصے میں ابھی کوئی ریکارڈنگ نہیں۔",startRecord:"🎙️ ریکارڈنگ شروع کریں",stopRecord:"⏹ روکیں اور محفوظ کریں",voiceHeading:"🎙️ صوتی نوٹس",voicePermission:"مائیکروفون کی اجازت کے لیے شروع دبائیں۔",recording:"🔴 ریکارڈنگ جاری ہے...",savedVoice:"آواز محفوظ ہوگئی۔",deleteVoiceConfirm:"کیا یہ ریکارڈنگ حذف کریں؟",voiceDeleteError:"ریکارڈنگ حذف نہیں ہوسکی۔",voiceUnsupported:"یہ براؤزر آڈیو ریکارڈنگ کی حمایت نہیں کرتا۔",secureMic:"مائیکروفون کے لیے محفوظ https:// پتہ ضروری ہے۔",micDenied:"مائیکروفون کی اجازت نہیں ملی۔",micError:"مائیکروفون شروع نہیں ہوسکا۔",micBusy:"مائیکروفون دوسری ایپ استعمال کر رہی ہے۔",noMic:"مائیکروفون نہیں ملا۔",backupName:"zakkerni-backup.json",debtLabel:"رقم:",enterCustomer:"گاہک کا نام اور رقم درج کریں",filesSaved:"فائلوں کے نام محفوظ ہوگئے",hour12Label:"12 گھنٹے",hour24Label:"24 گھنٹے",welcomeSpeech:"خوش آمدید"
+},
+hi:{
+appName:"🔔 मुझे याद दिलाएं",tagline:"आपका निजी आयोजक",welcome:"स्वागत है",intro:"अपनी नियुक्तियों और जानकारी को एक जगह व्यवस्थित करें।",services:"ऐप सेवाएं",
+reminders:"अनुस्मारक और नियुक्तियां",health:"दवाएं और स्वास्थ्य",people:"लोग और संपर्क",files:"फोटो और फाइलें",audio:"आवाज रिकॉर्डिंग",future:"भविष्य के संदेश",business:"व्यवसाय और खाते",worship:"प्रार्थना और उपासना",
+addReminder:"अनुस्मारक जोड़ें",saveMedicine:"दवा सहेजें",savePerson:"व्यक्ति सहेजें",saveFileNames:"फाइल नाम सहेजें",fileNote:"यह संस्करण केवल फाइलों के नाम सहेजता है।",audioIntro:"आवाज नोट रिकॉर्ड करें और बाद में सुनें।",saveMessage:"संदेश सहेजें",saveAccount:"खाता सहेजें",
+history:"📋 इतिहास",historyNote:"आपका डेटा इस डिवाइस पर सुरक्षित है।",exportBackup:"बैकअप निर्यात करें",settings:"⚙️ सेटिंग्स",languageLabel:"🌐 ऐप की भाषा",languageNote:"भाषा चुनें। आपका चयन इस डिवाइस पर सहेजा जाएगा।",clockMode:"घड़ी प्रारूप",hour12:"12 घंटे",hour24:"24 घंटे",voiceTest:"आवाज जांचें",exportMyData:"मेरा डेटा निर्यात करें",about:"ऐप के बारे में",aboutText:"नियुक्तियों और जानकारी के लिए आपका निजी सहायक।",versionText:"प्रारंभिक परीक्षण संस्करण।",
+remTextPlaceholder:"अनुस्मारक लिखें",medPlaceholder:"दवा का नाम और खुराक",personPlaceholder:"नाम, फोन नंबर और जानकारी",futurePlaceholder:"संदेश लिखें",customerPlaceholder:"ग्राहक का नाम",amountPlaceholder:"ऋण राशि",
+dhikr1:"ईश्वर की महिमा और स्तुति हो।",dhikr2:"मैं ईश्वर से क्षमा मांगता हूं।",dhikr3:"ईश्वर हमारे पैगंबर मुहम्मद पर कृपा करे।",
+writeFirst:"पहले जानकारी दर्ज करें",saved:"सहेजा गया",delete:"हटाएं",noVoice:"इस अनुभाग में अभी कोई रिकॉर्डिंग नहीं है।",startRecord:"🎙️ रिकॉर्डिंग शुरू करें",stopRecord:"⏹ रोकें और सहेजें",voiceHeading:"🎙️ आवाज नोट",voicePermission:"माइक्रोफोन की अनुमति देने के लिए शुरू दबाएं।",recording:"🔴 रिकॉर्डिंग जारी है...",savedVoice:"रिकॉर्डिंग सफलतापूर्वक सहेजी गई।",deleteVoiceConfirm:"क्या यह रिकॉर्डिंग हटाएं?",voiceDeleteError:"रिकॉर्डिंग हटाई नहीं जा सकी।",voiceUnsupported:"यह ब्राउज़र ऑडियो रिकॉर्डिंग का समर्थन नहीं करता।",secureMic:"माइक्रोफोन के लिए सुरक्षित https:// पता आवश्यक है।",micDenied:"माइक्रोफोन अनुमति अस्वीकार की गई।",micError:"माइक्रोफोन शुरू नहीं हो सका।",micBusy:"माइक्रोफोन किसी अन्य ऐप द्वारा उपयोग किया जा रहा है।",noMic:"माइक्रोफोन नहीं मिला।",backupName:"zakkerni-backup.json",debtLabel:"राशि:",enterCustomer:"ग्राहक का नाम और राशि दर्ज करें",filesSaved:"फाइल नाम सहेजे गए",hour12Label:"12 घंटे",hour24Label:"24 घंटे",welcomeSpeech:"स्वागत है"
+},
+zh:{
+appName:"🔔 记住我",tagline:"您的个人生活助手",welcome:"欢迎使用",intro:"整理日程并将信息保存在一个地方。",services:"应用服务",
+reminders:"提醒和日程",health:"药物和健康",people:"联系人",files:"照片和文件",audio:"语音录音",future:"未来消息",business:"业务和账户",worship:"祈祷和敬拜",
+addReminder:"添加提醒",saveMedicine:"保存药物",savePerson:"保存联系人",saveFileNames:"保存文件名",fileNote:"此版本仅保存文件名，不保存文件内容。",audioIntro:"录制语音备忘录，以便稍后收听。",saveMessage:"保存消息",saveAccount:"保存账户",
+history:"📋 历史记录",historyNote:"您的数据保存在此设备上。",exportBackup:"导出备份",settings:"⚙️ 设置",languageLabel:"🌐 应用语言",languageNote:"选择应用语言。您的选择将保存在此设备上。",clockMode:"时间格式",hour12:"12小时制",hour24:"24小时制",voiceTest:"测试语音",exportMyData:"导出我的数据",about:"关于应用",aboutText:"用于管理日程和信息的个人助手。",versionText:"早期测试版本。",
+remTextPlaceholder:"输入提醒",medPlaceholder:"药物名称和剂量",personPlaceholder:"姓名、电话和信息",futurePlaceholder:"输入消息",customerPlaceholder:"客户姓名",amountPlaceholder:"欠款金额",
+dhikr1:"赞美真主，赞颂真主。",dhikr2:"我向真主祈求宽恕。",dhikr3:"愿真主赐福我们的先知穆罕默德。",
+writeFirst:"请先输入信息",saved:"已保存",delete:"删除",noVoice:"此部分尚无录音。",startRecord:"🎙️ 开始录音",stopRecord:"⏹ 停止并保存",voiceHeading:"🎙️ 语音备忘录",voicePermission:"点击开始以允许使用麦克风。",recording:"🔴 正在录音...",savedVoice:"录音已成功保存。",deleteVoiceConfirm:"要删除此录音吗？",voiceDeleteError:"无法删除录音。",voiceUnsupported:"此浏览器不支持录音。",secureMic:"麦克风需要安全的 https:// 地址。",micDenied:"麦克风权限被拒绝。",micError:"无法启动麦克风。",micBusy:"麦克风正被其他应用使用。",noMic:"未找到麦克风。",backupName:"zakkerni-backup.json",debtLabel:"金额：",enterCustomer:"请输入客户姓名和金额",filesSaved:"文件名已保存",hour12Label:"12小时制",hour24Label:"24小时制",welcomeSpeech:"欢迎"
+},
+ru:{
+appName:"🔔 Напомни мне",tagline:"Ваш личный помощник",welcome:"Добро пожаловать",intro:"Организуйте встречи и храните информацию в одном месте.",services:"Сервисы приложения",
+reminders:"Напоминания и встречи",health:"Лекарства и здоровье",people:"Люди и контакты",files:"Фото и файлы",audio:"Аудиозаписи",future:"Будущие сообщения",business:"Бизнес и счета",worship:"Молитвы и поклонение",
+addReminder:"Добавить напоминание",saveMedicine:"Сохранить лекарство",savePerson:"Сохранить контакт",saveFileNames:"Сохранить имена файлов",fileNote:"Эта версия сохраняет только имена файлов.",audioIntro:"Записывайте голосовые заметки и слушайте их позже.",saveMessage:"Сохранить сообщение",saveAccount:"Сохранить счет",
+history:"📋 История",historyNote:"Данные хранятся на этом устройстве.",exportBackup:"Экспорт резервной копии",settings:"⚙️ Настройки",languageLabel:"🌐 Язык приложения",languageNote:"Выберите язык. Выбор будет сохранен на устройстве.",clockMode:"Формат времени",hour12:"12 часов",hour24:"24 часа",voiceTest:"Проверить голос",exportMyData:"Экспортировать данные",about:"О приложении",aboutText:"Ваш личный помощник для встреч и информации.",versionText:"Ранняя тестовая версия.",
+remTextPlaceholder:"Введите напоминание",medPlaceholder:"Название лекарства и дозировка",personPlaceholder:"Имя, телефон и информация",futurePlaceholder:"Напишите сообщение",customerPlaceholder:"Имя клиента",amountPlaceholder:"Сумма долга",
+dhikr1:"Хвала Богу и благодарение Ему.",dhikr2:"Прошу у Бога прощения.",dhikr3:"Да благословит Бог нашего пророка Мухаммеда.",
+writeFirst:"Сначала введите информацию",saved:"Сохранено",delete:"Удалить",noVoice:"В этом разделе пока нет записей.",startRecord:"🎙️ Начать запись",stopRecord:"⏹ Остановить и сохранить",voiceHeading:"🎙️ Голосовые заметки",voicePermission:"Нажмите «Начать», чтобы разрешить микрофон.",recording:"🔴 Идет запись...",savedVoice:"Запись успешно сохранена.",deleteVoiceConfirm:"Удалить эту запись?",voiceDeleteError:"Не удалось удалить запись.",voiceUnsupported:"Этот браузер не поддерживает запись аудио.",secureMic:"Для микрофона требуется защищенный адрес https://.",micDenied:"Доступ к микрофону запрещен.",micError:"Не удалось запустить микрофон.",micBusy:"Микрофон используется другим приложением.",noMic:"Микрофон не найден.",backupName:"zakkerni-backup.json",debtLabel:"Сумма:",enterCustomer:"Введите имя клиента и сумму",filesSaved:"Имена файлов сохранены",hour12Label:"12 часов",hour24Label:"24 часа",welcomeSpeech:"Добро пожаловать"
+}
+};
+
+const languageNames = {ar:"العربية",en:"English",fr:"Français",es:"Español",de:"Deutsch",tr:"Türkçe",ur:"اردو",hi:"हिन्दी",zh:"中文",ru:"Русский"};
+const rtlLanguages = ["ar","ur"];
+let currentLanguage = "ar";
+
+function t(key){return (dictionaries[currentLanguage] && dictionaries[currentLanguage][key]) || dictionaries.en[key] || dictionaries.ar[key] || key;}
+
+function applyLanguage(lang){
+  if(!dictionaries[lang]) lang="ar";
+  currentLanguage=lang;
+  document.documentElement.lang=lang;
+  document.documentElement.dir=rtlLanguages.includes(lang)?"rtl":"ltr";
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(t(key)!==key) el.textContent=t(key);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    el.placeholder=t(el.getAttribute("data-i18n-placeholder"));
+  });
+  const selector=document.getElementById("appLanguage");
+  if(selector) selector.value=lang;
+  localStorage.setItem("zakkerni_language",lang);
+  updateClock();
+  document.querySelectorAll(".voice-box").forEach(box=>{
+    const section=box.closest("section")?.id;
+    if(section) refreshVoiceBox(section,box);
+  });
+}
+
+function changeAppLanguage(lang){applyLanguage(lang);}
+
+function initializeLanguage(){
+  const saved=localStorage.getItem("zakkerni_language");
+  const device=(navigator.language||"ar").split("-")[0].toLowerCase();
+  applyLanguage(saved && dictionaries[saved] ? saved : (dictionaries[device] ? device : "ar"));
+}
+
 const keys=['reminders','health','people','future','business','files'];
 const voiceSections=['reminders','health','people','files','audio','future','business','worship'];
-let dbPromise=null, activeRecorder=null, activeStream=null, activeChunks=[], activeSection=null;
+let dbPromise=null,activeRecorder=null,activeStream=null,activeChunks=[],activeSection=null;
+
 function getData(k){try{return JSON.parse(localStorage.getItem('zakkerni_'+k)||'[]')}catch(e){return []}}
-function saveData(k,data){try{localStorage.setItem('zakkerni_'+k,JSON.stringify(data));render(k)}catch(e){alert('تعذر حفظ البيانات على هذا الجهاز.')} }
-function addItem(section,textId,dateId){const input=document.getElementById(textId);const text=input.value.trim();if(!text){alert('اكتب المعلومات أولاً');return}const data=getData(section);data.push({text,date:dateId?document.getElementById(dateId).value:''});saveData(section,data);input.value='';if(dateId)document.getElementById(dateId).value=''}
-function addDebt(){const name=document.getElementById('customerText').value.trim();const amount=document.getElementById('debtText').value;if(!name||!amount){alert('أدخل اسم الزبون والمبلغ');return}const data=getData('business');data.push({text:name+' - المبلغ: '+amount});saveData('business',data);document.getElementById('customerText').value='';document.getElementById('debtText').value=''}
-function render(k){const list=document.getElementById(k+'List');if(!list)return;const data=getData(k);list.innerHTML='';data.forEach((item,index)=>{const div=document.createElement('div');div.className='item';div.textContent=item.text+(item.date?' — '+item.date:'');const del=document.createElement('button');del.textContent='حذف';del.onclick=()=>{const updated=getData(k);updated.splice(index,1);saveData(k,updated)};div.appendChild(del);list.appendChild(div)})}
-function saveFiles(){const input=document.getElementById('fileInput');const names=Array.from(input.files).map(f=>({text:f.name}));saveData('files',getData('files').concat(names));input.value=''}
-function showSection(id){const target=document.getElementById(id);if(!target){alert('تعذر فتح هذا القسم.');return}document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));target.classList.remove('hidden');window.scrollTo(0,0);if(voiceSections.includes(id))loadVoiceList(id)}
-function speak(text){if('speechSynthesis'in window){const msg=new SpeechSynthesisUtterance(text);msg.lang='ar-SA';speechSynthesis.speak(msg)}else alert('النطق الصوتي غير مدعوم في هذا المتصفح')}
-function updateClock(){const now=new Date();const mode=document.getElementById('hourMode')?.value||'12';document.getElementById('clock').textContent=now.toLocaleTimeString('ar-JO',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:mode==='12'});document.getElementById('date').textContent=now.toLocaleDateString('ar-JO',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+' | '+new Intl.DateTimeFormat('ar-JO-u-ca-islamic',{dateStyle:'long'}).format(now)+' هـ'}
-function exportData(){const backup={};keys.forEach(k=>backup[k]=getData(k));const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='zakkerni-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function openDB(){if(dbPromise)return dbPromise;dbPromise=new Promise((resolve,reject)=>{if(!('indexedDB'in window)){reject(new Error('التخزين الصوتي غير مدعوم في هذا المتصفح'));return}const request=indexedDB.open('ZakkerniVoiceDB',1);request.onupgradeneeded=()=>{const db=request.result;if(!db.objectStoreNames.contains('recordings')){const store=db.createObjectStore('recordings',{keyPath:'id',autoIncrement:true});store.createIndex('section','section',{unique:false})}};request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error||new Error('تعذر فتح مساحة حفظ التسجيلات'))});return dbPromise}
-function voiceUI(section){const panel=document.getElementById(section);if(!panel||panel.querySelector('.voice-box'))return;const box=document.createElement('div');box.className='voice-box';box.innerHTML='<h3>🎙️ ملاحظات صوتية لهذا القسم</h3><div class="voice-actions"><button type="button" data-action="start">🎙️ ابدأ التسجيل</button><button type="button" data-action="stop" disabled>⏹ إيقاف وحفظ</button></div><div class="record-status" aria-live="polite">اضغط على ابدأ التسجيل للسماح باستخدام الميكروفون.</div><div class="voice-list"></div>';panel.appendChild(box);box.querySelector('[data-action="start"]').addEventListener('click',()=>startRecording(section,box));box.querySelector('[data-action="stop"]').addEventListener('click',()=>stopRecording());}
-async function startRecording(section,box){if(activeRecorder&&activeRecorder.state==='recording'){alert('يوجد تسجيل جارٍ. أوقفه أولاً.');return}const status=box.querySelector('.record-status');const start=box.querySelector('[data-action="start"]');const stop=box.querySelector('[data-action="stop"]');if(!window.isSecureContext){status.textContent='الميكروفون يحتاج إلى رابط آمن يبدأ بـ https://. افتح التطبيق من GitHub Pages أو استضافة آمنة.';return}if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){status.textContent='هذا المتصفح لا يدعم التسجيل الصوتي. جرّب فتح التطبيق بمتصفح Chrome حديث.';return}try{await openDB();status.textContent='بانتظار إذن الميكروفون...';activeStream=await navigator.mediaDevices.getUserMedia({audio:true});activeChunks=[];let options={};if(MediaRecorder.isTypeSupported('audio/webm;codecs=opus'))options.mimeType='audio/webm;codecs=opus';else if(MediaRecorder.isTypeSupported('audio/webm'))options.mimeType='audio/webm';activeRecorder=new MediaRecorder(activeStream,options);activeSection=section;activeRecorder.ondataavailable=e=>{if(e.data&&e.data.size)activeChunks.push(e.data)};activeRecorder.onerror=()=>{status.textContent='حدث خطأ أثناء التسجيل. تحقق من إذن الميكروفون ثم حاول مجدداً.';cleanupRecorder()};activeRecorder.onstop=async()=>{try{const type=activeRecorder.mimeType||'audio/webm';const blob=new Blob(activeChunks,{type});if(!blob.size)throw new Error('لم يتم التقاط صوت.');const db=await openDB();await new Promise((resolve,reject)=>{const tx=db.transaction('recordings','readwrite');tx.objectStore('recordings').add({section:activeSection,blob,type,createdAt:new Date().toISOString()});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||new Error('تعذر حفظ التسجيل'))});status.textContent='تم حفظ التسجيل الصوتي بنجاح.';await loadVoiceList(activeSection)}catch(err){status.textContent=err.message||'تعذر حفظ التسجيل الصوتي.'}finally{cleanupRecorder();start.disabled=false;stop.disabled=true}};activeRecorder.start();start.disabled=true;stop.disabled=false;status.textContent='🔴 التسجيل يعمل الآن... اضغط إيقاف وحفظ عند الانتهاء.'}catch(err){cleanupRecorder();start.disabled=false;stop.disabled=true;let msg='تعذر تشغيل الميكروفون.';if(err.name==='NotAllowedError'||err.name==='PermissionDeniedError')msg='تم رفض إذن الميكروفون. اسمح لمتصفح Chrome باستخدام الميكروفون من إعدادات الموقع.';else if(err.name==='NotFoundError'||err.name==='DevicesNotFoundError')msg='لم يتم العثور على ميكروفون متصل بالجهاز.';else if(err.name==='NotReadableError')msg='الميكروفون مستخدم من تطبيق آخر. أغلق التطبيق الآخر ثم حاول.';else if(err.message)msg=err.message;status.textContent=msg}}
+function saveData(k,data){try{localStorage.setItem('zakkerni_'+k,JSON.stringify(data));render(k)}catch(e){alert('Could not save data.')}}
+
+function addItem(section,textId,dateId){
+  const input=document.getElementById(textId),value=input.value.trim();
+  if(!value){alert(t('writeFirst'));return}
+  const data=getData(section);data.push({text:value,date:dateId?document.getElementById(dateId).value:''});
+  saveData(section,data);input.value='';if(dateId)document.getElementById(dateId).value='';
+}
+function addDebt(){
+  const name=document.getElementById('customerText').value.trim(),amount=document.getElementById('debtText').value;
+  if(!name||!amount){alert(t('enterCustomer'));return}
+  const data=getData('business');data.push({text:name+' - '+t('debtLabel')+' '+amount});saveData('business',data);
+  document.getElementById('customerText').value='';document.getElementById('debtText').value='';
+}
+function render(k){
+  const list=document.getElementById(k+'List');if(!list)return;
+  list.innerHTML='';
+  getData(k).forEach((item,index)=>{
+    const div=document.createElement('div');div.className='item';
+    div.textContent=item.text+(item.date?' — '+item.date:' ');
+    const del=document.createElement('button');del.textContent=t('delete');
+    del.onclick=()=>{const data=getData(k);data.splice(index,1);saveData(k,data)};
+    div.appendChild(del);list.appendChild(div);
+  });
+}
+function saveFiles(){
+  const input=document.getElementById('fileInput'),names=Array.from(input.files).map(f=>({text:f.name}));
+  saveData('files',getData('files').concat(names));input.value='';
+}
+function showSection(id){
+  const target=document.getElementById(id);if(!target)return;
+  document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+  target.classList.remove('hidden');window.scrollTo(0,0);
+  if(voiceSections.includes(id))loadVoiceList(id);
+}
+function speakCurrentWelcome(){
+  if(!('speechSynthesis'in window)){alert(t('voiceUnsupported'));return}
+  const msg=new SpeechSynthesisUtterance(t('welcomeSpeech'));
+  msg.lang=currentLanguage; speechSynthesis.speak(msg);
+}
+function updateClock(){
+  const now=new Date(),mode=document.getElementById('hourMode')?.value||'12';
+  const locale=currentLanguage+(currentLanguage==='zh'?'-CN':currentLanguage==='en'?'-US':'');
+  document.getElementById('clock').textContent=now.toLocaleTimeString(locale,{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:mode==='12'});
+  document.getElementById('date').textContent=now.toLocaleDateString(locale,{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+function exportData(){
+  const backup={};keys.forEach(k=>backup[k]=getData(k));
+  const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='zakkerni-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function openDB(){
+  if(dbPromise)return dbPromise;
+  dbPromise=new Promise((resolve,reject)=>{
+    if(!('indexedDB'in window)){reject(new Error('IndexedDB unavailable'));return}
+    const req=indexedDB.open('ZakkerniVoiceDB',1);
+    req.onupgradeneeded=()=>{
+      const db=req.result;
+      if(!db.objectStoreNames.contains('recordings')){
+        const store=db.createObjectStore('recordings',{keyPath:'id',autoIncrement:true});
+        store.createIndex('section','section',{unique:false});
+      }
+    };
+    req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('Database error'));
+  });
+  return dbPromise;
+}
+function voiceUI(section){
+  const panel=document.getElementById(section);if(!panel||panel.querySelector('.voice-box'))return;
+  const box=document.createElement('div');box.className='voice-box';
+  box.innerHTML='<h3 data-voice-heading></h3><div class="voice-actions"><button type="button" data-action="start"></button><button type="button" data-action="stop" disabled></button></div><div class="record-status" aria-live="polite"></div><div class="voice-list"></div>';
+  panel.appendChild(box);
+  box.querySelector('[data-action="start"]').addEventListener('click',()=>startRecording(section,box));
+  box.querySelector('[data-action="stop"]').addEventListener('click',stopRecording);
+  refreshVoiceBox(section,box);
+}
+function refreshVoiceBox(section,box){
+  box.querySelector('[data-voice-heading]').textContent=t('voiceHeading');
+  box.querySelector('[data-action="start"]').textContent=t('startRecord');
+  box.querySelector('[data-action="stop"]').textContent=t('stopRecord');
+  if(!box.querySelector('.record-status').dataset.custom)box.querySelector('.record-status').textContent=t('voicePermission');
+}
+async function startRecording(section,box){
+  if(activeRecorder&&activeRecorder.state==='recording'){alert(t('micBusy'));return}
+  const status=box.querySelector('.record-status'),start=box.querySelector('[data-action="start"]'),stop=box.querySelector('[data-action="stop"]');
+  if(!window.isSecureContext){status.textContent=t('secureMic');status.dataset.custom="1";return}
+  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){status.textContent=t('voiceUnsupported');status.dataset.custom="1";return}
+  try{
+    await openDB();activeStream=await navigator.mediaDevices.getUserMedia({audio:true});activeChunks=[];
+    let options={};
+    if(MediaRecorder.isTypeSupported('audio/webm;codecs=opus'))options.mimeType='audio/webm;codecs=opus';
+    else if(MediaRecorder.isTypeSupported('audio/webm'))options.mimeType='audio/webm';
+    activeRecorder=new MediaRecorder(activeStream,options);activeSection=section;
+    activeRecorder.ondataavailable=e=>{if(e.data&&e.data.size)activeChunks.push(e.data)};
+    activeRecorder.onerror=()=>{status.textContent=t('micError');status.dataset.custom="1";cleanupRecorder()};
+    activeRecorder.onstop=async()=>{
+      try{
+        const blob=new Blob(activeChunks,{type:activeRecorder?.mimeType||'audio/webm'});
+        if(!blob.size)throw new Error(t('micError'));
+        const db=await openDB();
+        await new Promise((resolve,reject)=>{
+          const tx=db.transaction('recordings','readwrite');
+          tx.objectStore('recordings').add({section:activeSection,blob,createdAt:new Date().toISOString()});
+          tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+        });
+        status.textContent=t('savedVoice');status.dataset.custom="1";await loadVoiceList(activeSection);
+      }catch(e){status.textContent=e.message||t('micError');status.dataset.custom="1"}
+      finally{cleanupRecorder();start.disabled=false;stop.disabled=true}
+    };
+    activeRecorder.start();start.disabled=true;stop.disabled=false;
+    status.textContent=t('recording');status.dataset.custom="1";
+  }catch(err){
+    cleanupRecorder();start.disabled=false;stop.disabled=true;
+    let message=t('micError');
+    if(err.name==='NotAllowedError'||err.name==='PermissionDeniedError')message=t('micDenied');
+    else if(err.name==='NotFoundError'||err.name==='DevicesNotFoundError')message=t('noMic');
+    else if(err.name==='NotReadableError')message=t('micBusy');
+    status.textContent=message;status.dataset.custom="1";
+  }
+}
 function stopRecording(){if(activeRecorder&&activeRecorder.state==='recording')activeRecorder.stop()}
 function cleanupRecorder(){if(activeStream){activeStream.getTracks().forEach(track=>track.stop());activeStream=null}activeRecorder=null;activeChunks=[]}
-async function loadVoiceList(section){const panel=document.getElementById(section);if(!panel)return;const box=panel.querySelector('.voice-box');if(!box)return;const list=box.querySelector('.voice-list');list.innerHTML='';try{const db=await openDB();const records=await new Promise((resolve,reject)=>{const tx=db.transaction('recordings','readonly');const req=tx.objectStore('recordings').index('section').getAll(section);req.onsuccess=()=>resolve(req.result||[]);req.onerror=()=>reject(req.error)});records.sort((a,b)=>b.id-a.id);if(!records.length){list.textContent='لا توجد تسجيلات محفوظة في هذا القسم بعد.';return}records.forEach(record=>{const item=document.createElement('div');item.className='voice-item';const date=document.createElement('small');date.textContent=new Date(record.createdAt).toLocaleString('ar-JO');const audio=document.createElement('audio');audio.controls=true;audio.preload='none';const url=URL.createObjectURL(record.blob);audio.src=url;audio.onended=()=>URL.revokeObjectURL(url);const del=document.createElement('button');del.textContent='حذف التسجيل';del.addEventListener('click',async()=>{if(!confirm('هل تريد حذف هذا التسجيل؟'))return;try{const db=await openDB();await new Promise((resolve,reject)=>{const tx=db.transaction('recordings','readwrite');tx.objectStore('recordings').delete(record.id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});URL.revokeObjectURL(url);loadVoiceList(section)}catch(e){alert('تعذر حذف التسجيل.')}});item.append(date,audio,del);list.appendChild(item)})}catch(err){list.textContent=err.message||'تعذر قراءة التسجيلات المحفوظة.'}}
-voiceSections.forEach(voiceUI);keys.forEach(render);updateClock();setInterval(updateClock,1000);
+async function loadVoiceList(section){
+  const panel=document.getElementById(section),box=panel?.querySelector('.voice-box');if(!box)return;
+  const list=box.querySelector('.voice-list');list.innerHTML='';
+  try{
+    const db=await openDB();
+    const records=await new Promise((resolve,reject)=>{
+      const tx=db.transaction('recordings','readonly'),req=tx.objectStore('recordings').index('section').getAll(section);
+      req.onsuccess=()=>resolve(req.result||[]);req.onerror=()=>reject(req.error);
+    });
+    records.sort((a,b)=>b.id-a.id);
+    if(!records.length){list.textContent=t('noVoice');return}
+    records.forEach(record=>{
+      const item=document.createElement('div');item.className='voice-item';
+      const date=document.createElement('small');date.textContent=new Date(record.createdAt).toLocaleString(currentLanguage);
+      const audio=document.createElement('audio');audio.controls=true;audio.preload='none';
+      const url=URL.createObjectURL(record.blob);audio.src=url;
+      const del=document.createElement('button');del.textContent=t('delete');
+      del.addEventListener('click',async()=>{
+        if(!confirm(t('deleteVoiceConfirm')))return;
+        try{
+          const database=await openDB();
+          await new Promise((resolve,reject)=>{
+            const tx=database.transaction('recordings','readwrite');tx.objectStore('recordings').delete(record.id);
+            tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+          });
+          URL.revokeObjectURL(url);loadVoiceList(section);
+        }catch(e){alert(t('voiceDeleteError'))}
+      });
+      item.append(date,audio,del);list.appendChild(item);
+    });
+  }catch(err){list.textContent=t('voiceUnsupported')}
+}
+voiceSections.forEach(voiceUI);
+keys.forEach(render);
+initializeLanguage();
+updateClock();
+setInterval(updateClock,1000);
 </script>
-</body></html>
+</body>
+</html>
